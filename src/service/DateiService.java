@@ -9,11 +9,24 @@ import java.util.ArrayList;
 
 import termin.Termin;
 
+/*
+ * Die Klasse DateiService verwaltet
+ * das Speichern und Laden von Terminen.
+ * 
+ * Die Termine werden in einer Textdatei
+ * gespeichert und gelesen.
+ * 
+ * @author olenanikolaienko
+ */
 public class DateiService {
 
     private final String DATEI_NAME = "termine.txt";
 
-    // speichern
+    /*
+     * Speichert alle Termine in einer Datei.
+     * 
+     * @param termine Liste aller Termine
+     */
     public void saveTermine(ArrayList<Termin> termine) {
 
         try {
@@ -32,7 +45,11 @@ public class DateiService {
         }
     }
 
-    // laden
+    /*
+     * Lädt Termine aus der Datei.
+     * 
+     * @return Liste geladener Termine
+     */
     public ArrayList<Termin> loadTermine() {
         ArrayList<Termin> termine = new ArrayList<>();
 

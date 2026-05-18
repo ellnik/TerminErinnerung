@@ -20,6 +20,21 @@ import service.TerminService;
 import termin.Termin;
 import terminManager.TerminManager;
 
+/*
+ * Grafische Benutzeroberfläche der Anwendung.
+ * 
+ * Die Klasse ermöglicht:
+ * - Termine hinzufügen
+ * - Termine löschen
+ * - Termine anzeigen
+ * - Termine aus Datei laden
+ * - Termine in Datei speichern
+ * 
+ * Heutige Termine werden rot markiert.
+ * 
+ * @author olenanikolaienko
+ */
+
 public class TerminGUI extends JFrame {
 
     private JTextField titelField;
@@ -36,6 +51,11 @@ public class TerminGUI extends JFrame {
     private TerminService service;
     private DateiService dateiService;
 
+    /*
+     * Konstruktor der GUI.
+     * 
+     * Erstellt das Fenster und alle Komponenten.
+     */
     public TerminGUI() {
 
         manager = new TerminManager();
@@ -49,7 +69,7 @@ public class TerminGUI extends JFrame {
 
         setLayout(new BorderLayout());
 
-        // PANEL FÜR EINGABE
+        // panel für eingabe
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(4, 2));
 
@@ -76,14 +96,13 @@ public class TerminGUI extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        // LISTE
+        // liste
         listModel = new DefaultListModel<>();
 
         terminList = new JList<>(listModel);
 
-        // FARBEN
-        terminList.setCellRenderer(
-                new DefaultListCellRenderer() {
+        // farben
+        terminList.setCellRenderer(new DefaultListCellRenderer() {
 
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -91,6 +110,7 @@ public class TerminGUI extends JFrame {
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
                 Termin termin = (Termin) value;
+
                 if(termin.isHeute()) {
                     c.setForeground(Color.RED);
                 } else {
@@ -98,11 +118,9 @@ public class TerminGUI extends JFrame {
                 }
                 return c;
             }
-
         });
 
-        JScrollPane scrollPane =
-                new JScrollPane(terminList);
+        JScrollPane scrollPane = new JScrollPane(terminList);
 
         add(scrollPane, BorderLayout.CENTER);
 
@@ -115,10 +133,13 @@ public class TerminGUI extends JFrame {
         // buttons
         addButton.addActionListener(e -> addTermin());
         deleteButton.addActionListener(e -> deleteTermin());
-        setVisible(true);
 
+        setVisible(true);
     }
 
+    /*
+     * Fügt einen neuen Termin hinzu.
+     */
     private void addTermin() {
 
         String titel = titelField.getText();
@@ -135,10 +156,13 @@ public class TerminGUI extends JFrame {
 
     }
 
+    /*
+     * Löscht einen ausgewählten Termin.
+     */
     private void deleteTermin() {
+
         int index = terminList.getSelectedIndex();
         if(index != -1) {
-
             manager.removeTermin(index);
             listModel.remove(index);
             dateiService.saveTermine(manager.getTermine());
@@ -146,11 +170,12 @@ public class TerminGUI extends JFrame {
         }
     }
 
+    /*
+     * Leert die Eingabefelder.
+     */
     private void clearFields() {
         titelField.setText("");
         datumField.setText("");
         uhrzeitField.setText("");
-
     }
-
 }
