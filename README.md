@@ -23,7 +23,7 @@ TerminManager → manages appointments
 DateiService → save/load file handling
 TerminService → messages and notifications
 
-Screenshot1:
+Screenshot1:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung1.png
 Screenshot2:
 
 Simple desktop planner application for organizing daily appointments.
