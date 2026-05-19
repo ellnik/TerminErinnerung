@@ -1,5 +1,6 @@
 package main;
 
+import gui.Style;
 import gui.TerminGUI;
 
 /*
@@ -20,7 +21,10 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        new TerminGUI();
+    	Style.setup();
+    	
+    	new TerminGUI();
+        
 
     }
 

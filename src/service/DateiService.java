@@ -58,14 +58,18 @@ public class DateiService {
             String line;
 
             while((line = reader.readLine()) != null) {
+
                 String[] daten = line.split(";");
 
-                String titel = daten[0];
-                String datum = daten[1];
-                String uhrzeit = daten[2];
+                if(daten.length >= 3) {
 
-                Termin termin = new Termin(titel, datum, uhrzeit);
-                termine.add(termin);
+                    String titel = daten[0];
+                    String datum = daten[1];
+                    String uhrzeit = daten[2];
+
+                    Termin termin = new Termin(titel, datum, uhrzeit);
+                    termine.add(termin);
+                }
             }
 
             reader.close();

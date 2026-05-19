@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -67,8 +68,11 @@ public class TerminGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        setLayout(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
+        setContentPane(mainPanel);
         // panel für eingabe
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(4, 2));
@@ -93,6 +97,16 @@ public class TerminGUI extends JFrame {
 
         deleteButton = new JButton("Termin löschen");
         inputPanel.add(deleteButton);
+        
+        addButton.setBackground(new Color(76, 175, 80));
+        addButton.setForeground(Color.WHITE);
+
+        deleteButton.setBackground(new Color(244, 67, 54));
+        deleteButton.setForeground(Color.WHITE);
+        
+        addButton.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1, true));
+
+        deleteButton.setBorder(BorderFactory.createLineBorder( new Color(200, 200, 200), 1, true));
 
         add(inputPanel, BorderLayout.NORTH);
 
