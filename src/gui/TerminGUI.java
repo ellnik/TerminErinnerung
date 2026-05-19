@@ -38,10 +38,13 @@ import terminManager.TerminManager;
 
 public class TerminGUI extends JFrame {
 
-    private JTextField titelField;
+	
+	 //Eingabefeld für den Titel des Termins.
+	private JTextField titelField;
     private JTextField datumField;
     private JTextField uhrzeitField;
 
+   //Button zum Hinzufügen eines neuen Termins
     private JButton addButton;
     private JButton deleteButton;
 

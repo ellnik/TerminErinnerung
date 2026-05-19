@@ -1,4 +1,17 @@
 package gui;
+/*
+ * Die Klasse Style verwaltet das allgemeine Design
+ * der grafischen Benutzeroberfläche.
+ * 
+ * Die Klasse setzt:
+ * - Schriftarten
+ * - Farben
+ * - Rahmen für Eingabefelder
+ * 
+ * Dadurch wirkt die Anwendung moderner und einheitlich.
+ * 
+ * @author olenanikolaienko
+ */
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,6 +23,13 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 public class Style {
+	 /*
+     * Setzt das Design der GUI-Komponenten.
+     * 
+     * Die Methode definiert:
+     * - Schriftarten für Labels, Buttons und Textfelder
+     * - einen modernen Rahmen für Textfelder
+     */
 
     public static void setup() {
 

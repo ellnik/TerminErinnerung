@@ -20,7 +20,8 @@ import termin.Termin;
  */
 public class DateiService {
 
-    private final String DATEI_NAME = "termine.txt";
+    // * Name der Datei zum Speichern der Termine.
+	private final String DATEI_NAME = "termine.txt";
 
     /*
      * Speichert alle Termine in einer Datei.
@@ -46,7 +47,9 @@ public class DateiService {
     }
 
     /*
-     * Lädt Termine aus der Datei.
+     * Lädt alle gespeicherten Termine aus der Datei.
+     * 
+     * Ungültige oder leere Zeilen werden ignoriert.
      * 
      * @return Liste geladener Termine
      */
