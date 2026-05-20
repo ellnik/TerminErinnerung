@@ -1,20 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 import service.DateiService;
 import service.TerminService;
@@ -22,43 +11,26 @@ import termin.Termin;
 import terminManager.TerminManager;
 
 /*
- * Grafische Benutzeroberfläche der Anwendung.
+ * Hauptfenster der Anwendung.
  * 
- * Die Klasse ermöglicht:
- * - Termine hinzufügen
- * - Termine löschen
- * - Termine anzeigen
- * - Termine aus Datei laden
- * - Termine in Datei speichern
- * 
- * Heutige Termine werden rot markiert.
+ * Die Klasse verbindet:
+ * - Eingabe-Panel
+ * - Terminliste
+ * - Services
  * 
  * @author olenanikolaienko
  */
-
 public class TerminGUI extends JFrame {
 
-	
-	 //Eingabefeld für den Titel des Termins.
-	private JTextField titelField;
-    private JTextField datumField;
-    private JTextField uhrzeitField;
-
-   //Button zum Hinzufügen eines neuen Termins
-    private JButton addButton;
-    private JButton deleteButton;
-
-    private JList<Termin> terminList;
-    private DefaultListModel<Termin> listModel;
+    private Panel inputPanel;
+    private TerminListPanel listPanel;
 
     private TerminManager manager;
     private TerminService service;
     private DateiService dateiService;
 
-    /*
+    /**
      * Konstruktor der GUI.
-     * 
-     * Erstellt das Fenster und alle Komponenten.
      */
     public TerminGUI() {
 
@@ -67,121 +39,67 @@ public class TerminGUI extends JFrame {
         dateiService = new DateiService();
 
         setTitle("Termin Erinnerung");
-        setSize(500, 400);
+        setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        // main panel
+        setLayout(new BorderLayout(10, 10));
+        ((javax.swing.JComponent) getContentPane())
+                .setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        setContentPane(mainPanel);
-        // panel für eingabe
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(4, 2));
-
-        inputPanel.add(new JLabel("Titel:"));
-
-        titelField = new JTextField();
-        inputPanel.add(titelField);
-
-        inputPanel.add(new JLabel("Datum:"));
-
-        datumField = new JTextField();
-        inputPanel.add(datumField);
-
-        inputPanel.add(new JLabel("Uhrzeit:"));
-
-        uhrzeitField = new JTextField();
-        inputPanel.add(uhrzeitField);
-
-        addButton = new JButton("Termin hinzufügen");
-        inputPanel.add(addButton);
-
-        deleteButton = new JButton("Termin löschen");
-        inputPanel.add(deleteButton);
-        
-        addButton.setBackground(new Color(76, 175, 80));
-        addButton.setForeground(Color.WHITE);
-
-        deleteButton.setBackground(new Color(244, 67, 54));
-        deleteButton.setForeground(Color.WHITE);
-        
-        addButton.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1, true));
-
-        deleteButton.setBorder(BorderFactory.createLineBorder( new Color(200, 200, 200), 1, true));
-
+        // panels
+        inputPanel = new Panel();
+        listPanel = new TerminListPanel();
         add(inputPanel, BorderLayout.NORTH);
+        add(listPanel, BorderLayout.CENTER);
 
-        // liste
-        listModel = new DefaultListModel<>();
+        // termine laden
+        loadTermine();
 
-        terminList = new JList<>(listModel);
-
-        // farben
-        terminList.setCellRenderer(new DefaultListCellRenderer() {
-
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-                Termin termin = (Termin) value;
-
-                if(termin.isHeute()) {
-                    c.setForeground(Color.RED);
-                } else {
-                    c.setForeground(Color.BLACK);
-                }
-                return c;
-            }
-        });
-
-        JScrollPane scrollPane = new JScrollPane(terminList);
-
-        add(scrollPane, BorderLayout.CENTER);
-
-        // geladene termine
-        for(Termin termin : dateiService.loadTermine()) {
-            manager.addTermin(termin);
-            listModel.addElement(termin);
-        }
-
-        // buttons
-        addButton.addActionListener(e -> addTermin());
-        deleteButton.addActionListener(e -> deleteTermin());
+        // buttons events
+        inputPanel.getAddButton().addActionListener(e -> addTermin());
+        inputPanel.getDeleteButton().addActionListener(e -> deleteTermin());
 
         setVisible(true);
     }
 
-    /*
+    /**
+     * Lädt gespeicherte Termine.
+     */
+    private void loadTermine() {
+
+        for (Termin termin : dateiService.loadTermine()) {
+            manager.addTermin(termin);
+            listPanel.getListModel().addElement(termin);
+        }
+    }
+
+    /**
      * Fügt einen neuen Termin hinzu.
      */
     private void addTermin() {
 
-        String titel = titelField.getText();
-        String datum = datumField.getText();
-        String uhrzeit = uhrzeitField.getText();
-
+        String titel = inputPanel.getTitelField().getText();
+        String datum = inputPanel.getDatumField().getText();
+        String uhrzeit = inputPanel.getUhrzeitField().getText();
         Termin termin = new Termin(titel, datum, uhrzeit);
-
         manager.addTermin(termin);
-        listModel.addElement(termin);
+        listPanel.getListModel().addElement(termin);
         dateiService.saveTermine(manager.getTermine());
         service.showMessage("Termin hinzugefügt!");
         clearFields();
-
     }
 
     /*
-     * Löscht einen ausgewählten Termin.
+     * Löscht einen Termin.
      */
     private void deleteTermin() {
 
-        int index = terminList.getSelectedIndex();
-        if(index != -1) {
+        int index = listPanel.getTerminList().getSelectedIndex();
+        if (index != -1) {
             manager.removeTermin(index);
-            listModel.remove(index);
+            listPanel.getListModel().remove(index);
             dateiService.saveTermine(manager.getTermine());
             service.showMessage("Termin gelöscht!");
         }
@@ -191,8 +109,9 @@ public class TerminGUI extends JFrame {
      * Leert die Eingabefelder.
      */
     private void clearFields() {
-        titelField.setText("");
-        datumField.setText("");
-        uhrzeitField.setText("");
+
+        inputPanel.getTitelField().setText("");
+        inputPanel.getDatumField().setText("");
+        inputPanel.getUhrzeitField().setText("");
     }
 }
