@@ -38,6 +38,7 @@ src/
 Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung1.png
 Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung2.png
 Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung3.png
+Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung4.png
 
 # Termin Erinnerung
 
