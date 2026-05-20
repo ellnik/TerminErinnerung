@@ -30,32 +30,17 @@ public class TreminListRendener extends DefaultListCellRenderer {
      * @return Komponente für Darstellung
      */
     @Override
-    public Component getListCellRendererComponent(
-            JList<?> list,
-            Object value,
-            int index,
-            boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value,int index,boolean isSelected,boolean cellHasFocus) {
 
-        Component c = super.getListCellRendererComponent(
-                list,
-                value,
-                index,
-                isSelected,
-                cellHasFocus
-        );
+        Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         Termin termin = (Termin) value;
-
         if (termin.isHeute()) {
-
             c.setForeground(Color.RED);
 
         } else {
-
             c.setForeground(Color.BLACK);
         }
-
         return c;
     }
 }

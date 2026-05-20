@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import service.DateiService;
 import service.TerminService;
@@ -15,6 +16,7 @@ import terminManager.TerminManager;
  * 
  * Die Klasse verbindet:
  * - Eingabe-Panel
+ * - Button-Panel
  * - Terminliste
  * - Services
  * 
@@ -22,14 +24,15 @@ import terminManager.TerminManager;
  */
 public class TerminGUI extends JFrame {
 
-    private Panel inputPanel;
+    private ButtonPanel buttonPanel;
     private TerminListPanel listPanel;
+    private Panel inputPanel;
 
     private TerminManager manager;
     private TerminService service;
     private DateiService dateiService;
 
-    /**
+    /*
      * Konstruktor der GUI.
      */
     public TerminGUI() {
@@ -39,43 +42,52 @@ public class TerminGUI extends JFrame {
         dateiService = new DateiService();
 
         setTitle("Termin Erinnerung");
-        setSize(700, 500);
+        setSize(650, 450);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // main panel
+        // Layout
         setLayout(new BorderLayout(10, 10));
-        ((javax.swing.JComponent) getContentPane())
-                .setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        ((javax.swing.JComponent) getContentPane()).setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // panels
+        // Panels
         inputPanel = new Panel();
+        buttonPanel = new ButtonPanel();
         listPanel = new TerminListPanel();
-        add(inputPanel, BorderLayout.NORTH);
+
+        // topPanel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout(10, 10));
+        topPanel.add(inputPanel, BorderLayout.NORTH);
+        topPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Hinzufügen
+        add(topPanel, BorderLayout.NORTH);
+
         add(listPanel, BorderLayout.CENTER);
 
-        // termine laden
+        // Termine laden
         loadTermine();
 
-        // buttons events
-        inputPanel.getAddButton().addActionListener(e -> addTermin());
-        inputPanel.getDeleteButton().addActionListener(e -> deleteTermin());
+        // Button Events
+        buttonPanel.getAddButton().addActionListener(e -> addTermin());
+        buttonPanel.getDeleteButton().addActionListener(e -> deleteTermin());
 
         setVisible(true);
     }
 
-    /**
+    /*
      * Lädt gespeicherte Termine.
      */
     private void loadTermine() {
-
         for (Termin termin : dateiService.loadTermine()) {
             manager.addTermin(termin);
             listPanel.getListModel().addElement(termin);
         }
     }
 
-    /**
+    /*
      * Fügt einen neuen Termin hinzu.
      */
     private void addTermin() {
@@ -109,7 +121,6 @@ public class TerminGUI extends JFrame {
      * Leert die Eingabefelder.
      */
     private void clearFields() {
-
         inputPanel.getTitelField().setText("");
         inputPanel.getDatumField().setText("");
         inputPanel.getUhrzeitField().setText("");
