@@ -1,41 +1,57 @@
-Termin Erinnerung – Java Swing Project
+# Termin Erinnerung
 
-A desktop application developed with Java Swing for managing appointments and reminders.
+Desktop-Anwendung zur Verwaltung von Terminen mit Java Swing.
 
-Features
-Add appointments
-Delete appointments
-Save appointments to a text file
-Load saved appointments automatically
-Graphical user interface (GUI)
-Highlight today's appointments in red
-Appointment list using JList and ArrayList
-Technologies
-Java
-Java Swing
-OOP (Object-Oriented Programming)
-ArrayList
-File I/O (BufferedWriter / BufferedReader)
-Project Structure
-Termin → appointment model
-TerminGUI → graphical interface
-TerminManager → manages appointments
-DateiService → save/load file handling
-TerminService → messages and notifications
+## Funktionen
+
+- Termin hinzufügen
+- Termin löschen
+- Termine speichern
+- Termine laden
+- Heutige Termine rot markieren
+
+## Technologien
+
+- Java
+- Java Swing
+- Objektorientierte Programmierung (OOP)
+
+## GUI-Komponenten
+
+- JFrame
+- JPanel
+- JButton
+- JTextField
+- JList
+- JScrollPane
+
+## Projektstruktur
+
+```text
+src/
+ ├── gui/
+ ├── service/
+ ├── termin/
+ ├── terminManager/
+ └── rendener/
 
 Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung1.png
 Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung2.png
 Result:https://github.com/ellnik/TerminErinnerung/blob/main/TerminErinnerung3.png
 
-Simple desktop planner application for organizing daily appointments.
+# Termin Erinnerung
 
-Future Improvements
-Automatic reminders with Timer
-Sorting by date
-Search function
-CSV export
-LocalDate and LocalTime support
-Calendar integration
-Author
+Termin Erinnerung ist eine Desktop-Anwendung zur Verwaltung von Terminen, entwickelt mit Java Swing.
 
-Created as a Java Swing learning and portfolio project.
+Die Anwendung ermöglicht das Hinzufügen, Anzeigen und Löschen von Terminen über eine grafische Benutzeroberfläche. Alle Termine werden automatisch gespeichert und beim Start der Anwendung wieder geladen.
+
+Besondere Funktionen:
+- Termine hinzufügen
+- Termine löschen
+- Speicherung in Datei
+- Automatisches Laden der Termine
+- Farbige Markierung heutiger Termine
+
+Die Anwendung wurde mit objektorientierter Programmierung (OOP) umgesetzt und verwendet verschiedene Swing-Komponenten wie JFrame, JPanel, JButton, JTextField und JList.
+
+Das Projekt dient als Lernprojekt im Rahmen der Umschulung zur Fachinformatikerin für Anwendungsentwicklung.
